@@ -146,9 +146,9 @@ And now we can see the benefits of using an enum for currentPage, there is no de
 
 So we have:
 
-Created a service 
-Added a currentPage variable and page change function
-Created our tab’s view logic
+- Created a service 
+- Added a currentPage variable and page change function
+- Created our tab’s view logic
 
 Now let’s do the tabs! My preference for tabs is to have a tab bar and tab buttons as separate structs. Go ahead and create a SwiftUI file called “TabBar”. Let’s add this to main at the bottom of a VStack, with a spacer separating it from the page switch statement. Don’t forget to pass it our service.
 
