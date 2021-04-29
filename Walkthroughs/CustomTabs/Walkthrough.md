@@ -14,7 +14,7 @@ Hi all! In this walkthrough I’ll be talking about custom Tabs and how I like t
 <img src="./Resources/CustomTabsFull.gif" width="250" height="500"/>
 
 ## Intro 
-Before we start there are a few things to consider. As in most occasions, I am going to start by creating a “Service”, and if you don’t know what I mean when I say that, please look here. We need our page navigation functionality and current page variable to be inside the service so that we can access and change the page from different views. So let’s begin by designing the service!
+Before we start there are a few things to consider. As in most occasions, I am going to start by creating a “Service”, and if you don’t know what I mean when I say that, please look [here](https://github.com/edbarnes01/SwiftUI/tree/main/BeforeYouRead#service). We need our page navigation functionality and current page variable to be inside the service so that we can access and change the page from different views. So let’s begin by designing the service!
 
 ## Page Navigation
 Create a new swift file and name it “Service”. Then let’s define a new class “Service” and make it conform to the ObservableObject protocol. 
@@ -43,7 +43,7 @@ class Service: ObservableObject {
 }
 ```
 
-@Published is an important wrapper here and if you’re not sure what it does, please look here.
+@Published is an important wrapper here and if you’re not sure what it does, please look [here](https://www.hackingwithswift.com/quick-start/swiftui/what-is-the-published-property-wrapper).
 
 And then we need a function to change the page which we will use when the tab buttons are tapped! This is also useful because there may be times in an app where maybe you’d want to force a page upon the user, for example.
 
@@ -183,7 +183,7 @@ How the tabs will work is as follows:
 
 This keeps your tabs easy to manage, and makes adding a new page or feature easy. It’s so important to consider the scalability and readability of your code, especially when working in a team.
 
-So with that plan in mind, in the file, I’ll create a new struct called TabInfo at the top of the file and it will have 3 variables, the name, the enum value of the page and the name of the icon (SF symbol) that we want to use for the tab. If you haven’t downloaded SF Symbols, you can do so here. They are a fantastic resource. 
+So with that plan in mind, in the file, I’ll create a new struct called TabInfo at the top of the file and it will have 3 variables, the name, the enum value of the page and the name of the icon (SF symbol) that we want to use for the tab. If you haven’t downloaded SF Symbols, you can do so [here](https://developer.apple.com/sf-symbols/). They are a fantastic resource. 
 
 ``` swift 
 struct TabInfo {
