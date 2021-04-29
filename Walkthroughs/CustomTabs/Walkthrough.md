@@ -1,7 +1,7 @@
 <!-- CUSTOM TABS -->
 ## Custom Tabs
 
-Hi all! In this walkthrough I’ll be talking about custom Tabs and how I like to implement them into my apps. The article will cover the functionality behind page navigation and creating the custom tabs.
+Hi all! In this walkthrough I’ll be talking about custom Tabs and how I like to implement them into my apps. I'll cover the functionality behind page navigation and creating the custom tabs.
 
 <img src="./Resources/CustomTabsFull.gif" width="250" height="500"/>
 
@@ -9,14 +9,47 @@ Hi all! In this walkthrough I’ll be talking about custom Tabs and how I like t
 Before we start there are a few things to consider. As in most occasions, I am going to start by creating a “Service”, and if you don’t know what I mean when I say that, please look here. We need our page navigation functionality and current page variable to be inside the service so that we can access and change the page from different views. So let’s begin by designing the service!
 
 ## Page Navigation (Using a Service)
-Create a new swift file and name it “Service”. Then let’s define a new class “Service” and make it conform to the ObservableObject protocol. This will allow us to use it as an environment object which will allow views to receive updates from the variables inside it (eg. A current page variable!). So let’s create a current page variable that can be changed to show the page we want. I like to create Enumeration variables for page navigation, because they are exhaustive and we won’t get any strange values that you may accidentally change it to when using a string for example. Bug-proofing (he says with slight apprehension)! Here’s what this enum (for short) may look like for a shop app:
+Create a new swift file and name it “Service”. Then let’s define a new class “Service” and make it conform to the ObservableObject protocol. 
 
+``` swift
+class Service: ObservableObject {
 
-So now we have our page enum that defines our pages which the tabs will select! If at any point, you want a new tab, just add it to the enum here. I also want to say the enum doesn’t have to be declared in the Service file, but I like having it in here for context in case anyone else needs to read your code. Next, we will make a @Published variable called currentPage and the type will be our enum we just created. Make sure to initialise it! I will set it to home.  @Published is an important wrapper here and if you’re not sure what it does, please look here.
+}
+```
+This will allow us to use it as an environment object which will allow views to receive updates from the variables inside it (eg. A current page variable!). So let’s create a current page variable that can be changed to show the page we want. I like to create Enumeration variables for page navigation, because they are exhaustive and we won’t get any strange values that you may accidentally change it to when using a string for example. Bug-proofing (he says with slight apprehension)! Here’s what this enum (for short) may look like for a shop app:
+
+``` swift 
+enum Page {
+    case home
+    case search
+    case basket
+    case account
+}
+```
+
+So now we have our page enum that defines our pages which the tabs will select! If at any point, you want a new tab, just add it to the enum here. I also want to say the enum doesn’t have to be declared in the Service file, but I like having it in here for context in case anyone else needs to read your code. Next, we will make a @Published variable called currentPage and the type will be our enum we just created. Make sure to initialise it! I will set it to home.  
+
+``` swift
+class Service: ObservableObject {
+    @Published var currentPage: Page = .home
+}
+```
+
+@Published is an important wrapper here and if you’re not sure what it does, please look here.
 
 And then we need a function to change the page which we will use when the tab buttons are tapped! This is also useful because there may be times in an app where maybe you’d want to force a page upon the user, for example.
 
 So I’m going to create a function named changePage() and that will take an argument page which will be of type pages (our enum). I’m also going to add an underscore before the argument name which means we don’t have to type that bit when we call our function.
+
+``` swift 
+class Service: ObservableObject {
+    @Published var currentPage: Page = .home
+    
+    func changePage(_ page: Page) {
+        self.currentPage = page
+    }
+}
+```
 
 Cool, we’re all set!
 
