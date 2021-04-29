@@ -3,12 +3,20 @@
 
 Hi all! In this walkthrough I’ll be talking about custom Tabs and how I like to implement them into my apps. I'll cover the functionality behind page navigation and creating the custom tabs.
 
+* [Preview](#preview)
+
+* [Intro](#intro)
+* [Page Navigation](#page-navigation)
+* [The Tabs](#the-tabs)
+
+## Preview
+
 <img src="./Resources/CustomTabsFull.gif" width="250" height="500"/>
 
 ## Intro 
 Before we start there are a few things to consider. As in most occasions, I am going to start by creating a “Service”, and if you don’t know what I mean when I say that, please look here. We need our page navigation functionality and current page variable to be inside the service so that we can access and change the page from different views. So let’s begin by designing the service!
 
-## Page Navigation (Using a Service)
+## Page Navigation
 Create a new swift file and name it “Service”. Then let’s define a new class “Service” and make it conform to the ObservableObject protocol. 
 
 ``` swift
