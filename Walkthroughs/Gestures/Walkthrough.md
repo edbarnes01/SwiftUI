@@ -3,6 +3,7 @@
 
 Hi all! In this walkthrough I’ll be talking about gestures and how you can use them to create cool effects. This project focuses on the ```DragGesture()``` (but also includes ```.onTapGesture{}```). I decided a cool way to show you how this could work would be to recreate a home screen. This produced some interesting results... I rather like using SF Symbols instead of the normal icons for these apps 👀. Anyway, without further delay, let's jump in!
 
+* Disclaimer: Forgive me St.George for using "color" instead of the obviously correct, "colour" 😔
 * [Preview](#preview)
 * [Setup](#setup)
 * [Creating The Pages](#creating-the-pages)
@@ -221,7 +222,7 @@ Note: The colors I'm using here work for a dark background. I'll cover Color sch
 
  <img width="366" alt="Screenshot 2021-05-03 at 15 11 34" src="https://user-images.githubusercontent.com/68400711/116887136-dad19a80-ac21-11eb-8783-99e7106725ab.png">
 
-Jump back into ```Main.swift```. Let's create a new Struct called ```PageScroll``` and make it conform to View. This view will only reuqire our service. So this is how I created it:
+Jump back into ```Main.swift```. Let's create a new Struct called ```PageScroll``` and make it conform to View. This view will only require our service. So this is how I created it:
 
 ``` swift
 struct PageScroll: View {
@@ -291,7 +292,7 @@ extension Color {
 }
 ```
 
-Make sure to import SwiftUI in order to acces ```Color```!
+Make sure to import SwiftUI in order to access ```Color```!
 
 ## Gesture
 
@@ -335,37 +336,37 @@ struct Main: View {
     }
 }
 ```
-So we have a VStack containing a ZStack with our pages in, our ```PageScroll``` and the ```BottomBar```. A ZStack, in case you don't know, is like a VStack or HStack but instead of rendering it's content vertically or horziontally, it renders them ontop of each other. I defined the background here too which you can grab from the assets [folder](https://github.com/edbarnes01/SwiftUI/tree/main/Walkthroughs/Gestures/Gestures/Assets.xcassets/example_background.imageset) or use your own!
+So we have a VStack containing a ZStack with our pages in, our ```PageScroll``` and the ```BottomBar```. A ZStack, in case you don't know, is like a VStack or HStack but instead of rendering it's content vertically or horizontally, it renders them on-top of each other. I defined the background here too which you can grab from the assets [folder](https://github.com/edbarnes01/SwiftUI/tree/main/Walkthroughs/Gestures/Gestures/Assets.xcassets/example_background.imageset) or use your own!
 
-This is good but we need the ```HomePage``` views indside the ZStack to be side by side and not ontop of each other. We can do this by adding an offset in the x axis using the screenwidth and page number. Here's what that looks like represented visually:
+This is good but we need the ```HomePage``` views inside the ZStack to be side by side and not on-top of each other. We can do this by adding an offset in the x axis using the screen width and page number. Here's what that looks like represented visually:
 <img width="929" alt="Screenshot 2021-05-03 at 16 09 32" src="https://user-images.githubusercontent.com/68400711/116894675-3ef85c80-ac2a-11eb-9249-e3a081155e13.png">
 
 And in code adding two lines, one to HomePage and one to the ZStack istelf:
 
 ``` swift
 var body: some View {
-        VStack(spacing: 0){
-            ZStack {
-                ForEach(self.service.pages, id: \.self) { page in
-                    HomePage(pageNo: page.pageNo).environmentObject(service)
-                    .offset(x: CGFloat(page.pageNo) * UIScreen.main.bounds.width, y: 0)
-                }
+    VStack(spacing: 0){
+        ZStack {
+            ForEach(self.service.pages, id: \.self) { page in
+                HomePage(pageNo: page.pageNo).environmentObject(service)
+                .offset(x: CGFloat(page.pageNo) * UIScreen.main.bounds.width, y: 0)
             }
-            .frame(width: UIScreen.main.bounds.width)
-            .offset(x: -CGFloat(self.service.activePage) * UIScreen.main.bounds.width, y: 0)
-            
-            PageScroll().environmentObject(service)
-            BottomBar().environmentObject(service)
         }
-        .background(
-            Image("example_background")
-                .resizable()
-                .ignoresSafeArea()
-        )
+        .frame(width: UIScreen.main.bounds.width)
+        .offset(x: -CGFloat(self.service.activePage) * UIScreen.main.bounds.width, y: 0)
+
+        PageScroll().environmentObject(service)
+        BottomBar().environmentObject(service)
     }
+    .background(
+        Image("example_background")
+            .resizable()
+            .ignoresSafeArea()
+    )
+}
 ```
 
-I also defined the width of our ZStack to be the screen width. ***REMEMBER*** that the ZStack offset needs to be negative because your're moving all 3 pages in order to display the correct one in the viewport.
+I also defined the width of our ZStack to be the screen width. ***REMEMBER*** that the ZStack offset needs to be negative because you're moving all 3 pages in order to display the correct one in the viewport.
 
 ## Swipe Gesture
 
@@ -384,7 +385,7 @@ let HomeSwipeGesture = DragGesture()
 ```
 
 Remember our variable ```liveDrag``` - well we use our ```.onChanged{}``` along with defining the result of the gesture as ```change``` to assign it the value of the gesture's translation in the x-axis. That's the realtime drag covered! Now for when we stop dragging. 
-Ideally, our gesture will check wether we've swiped left or right and then check wether there is a page to the left or right to swap to, before resetting the realtime drag so that our new page sits nicely center frame. 
+Ideally, our gesture will check wether we've swiped left or right and then check wether there is a page to the left or right to swap to, before resetting the realtime drag so that our new page sits nicely centre frame. 
 So the three possible outcomes of the drag gesture:
 - Swiped left and there is a page after the current one
 - Swiped right and there is a page before the current one
