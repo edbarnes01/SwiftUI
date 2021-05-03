@@ -72,7 +72,7 @@ struct PageScroll: View {
                         .onTapGesture {
                             self.service.changePage(page.pageNo)
                         }
-                        .font(.custom("", size: 10))
+                        .font(.system(size: 10))
                 }
             }
             .padding(8)
