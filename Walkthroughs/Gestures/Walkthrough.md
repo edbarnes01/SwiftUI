@@ -293,5 +293,76 @@ extension Color {
 
 Make sure to import SwiftUI in order to acces ```Color```!
 
+## Gesture
 
+So the final thing to do is tie all those elements together and create our main swiping gesture!
 
+In our ```Main``` struct, let's add our service and then another variable which will become clear later:
+
+``` swift
+struct Main: View {
+    @EnvironmentObject var service: Service
+    @State var liveDrag: CGFloat = 0
+    
+    var body: some View {
+    
+    ...
+```
+
+Then let's make our body:
+
+``` swift 
+struct Main: View {
+    @EnvironmentObject var service: Service
+    @State var liveDrag: CGFloat = 0
+    
+    var body: some View {
+        VStack(spacing: 0){
+            ZStack {
+                ForEach(self.service.pages, id: \.self) { page in
+                    HomePage(pageNo: page.pageNo).environmentObject(service)
+                }
+            }
+            
+            PageScroll().environmentObject(service)
+            BottomBar().environmentObject(service)
+        }
+        .background(
+            Image("example_background")
+                .resizable()
+                .ignoresSafeArea()
+        )
+    }
+}
+```
+So we have a VStack containing a ZStack with our pages in, our ```PageScroll``` and the ```BottomBar```. A ZStack, in case you don't know, is like a VStack or HStack but instead of rendering it's content vertically or horziontally, it renders them ontop of each other. 
+
+This is good but we need the ```HomePage``` views indside the ZStack to be side by side and not ontop of each other. We can do this by adding an offset in the x axis using the screenwidth and page number. Here's what that looks like represented visually:
+<img width="929" alt="Screenshot 2021-05-03 at 16 09 32" src="https://user-images.githubusercontent.com/68400711/116894675-3ef85c80-ac2a-11eb-9249-e3a081155e13.png">
+
+And in code adding two lines, one to HomePage and one to the ZStack istelf:
+
+``` swift
+var body: some View {
+        VStack(spacing: 0){
+            ZStack {
+                ForEach(self.service.pages, id: \.self) { page in
+                    HomePage(pageNo: page.pageNo).environmentObject(service)
+                    .offset(x: CGFloat(page.pageNo) * UIScreen.main.bounds.width, y: 0)
+                }
+            }
+            .frame(width: UIScreen.main.bounds.width)
+            .offset(x: -CGFloat(self.service.activePage) * UIScreen.main.bounds.width, y: 0)
+            
+            PageScroll().environmentObject(service)
+            BottomBar().environmentObject(service)
+        }
+        .background(
+            Image("example_background")
+                .resizable()
+                .ignoresSafeArea()
+        )
+    }
+```
+
+I also defined the width of our ZStack to be the screen width. ***REMEMBER*** that the ZStack offset needs to be negative because your're moving all 3 pages in order to display the correct one in the viewport.
