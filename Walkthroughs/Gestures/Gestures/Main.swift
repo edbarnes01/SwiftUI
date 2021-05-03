@@ -63,14 +63,7 @@ struct Main: View {
 
 struct PageScroll: View {
     @EnvironmentObject var service: Service
-    @State var isScrolling = true
     var body: some View {
-        
-        let ScrollPressGesture = LongPressGesture(minimumDuration: 0.4)
-            .onChanged { _ in
-                self.isScrolling = true
-            }
-        
         HStack{
             HStack {
                 ForEach(self.service.pages, id:\.self) { page in
@@ -83,17 +76,10 @@ struct PageScroll: View {
                 }
             }
             .padding(8)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .foregroundColor(.darkGray)
-                    .opacity(isScrolling ? 0 : 0.8)
-            )
             
         }.padding(10)
-        .gesture(ScrollPressGesture)
     }
 }
-
 struct BottomBar: View {
     @EnvironmentObject var service: Service
     var body: some View {
