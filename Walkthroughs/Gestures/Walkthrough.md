@@ -4,10 +4,10 @@
 Hi all! In this walkthrough I’ll be talking about gestures and how you can use them to create cool effects. This project focuses on the ```DragGesture()``` (but also includes ```.onTapGesture{}```). I decided a cool way to show you how this could work would be to recreate a home screen. This produced some interesting results... I rather like using SF Symbols instead of the normal icons for these apps 👀. Anyway, without further delay, let's jump in!
 
 * [Preview](#preview)
-* [Intro](#intro)
 * [Setup](#setup)
 * [Creating The Pages](#creating-the-pages)
 * [Gesture](#gesture)
+* [Cba with your incredibly useful explanations](#swipe-gesture)
 
 ## Preview
 <img src="https://user-images.githubusercontent.com/68400711/116878953-f0da5d80-ac17-11eb-91d2-509c43505981.gif" width="250" height="500"/>
@@ -366,3 +366,10 @@ var body: some View {
 ```
 
 I also defined the width of our ZStack to be the screen width. ***REMEMBER*** that the ZStack offset needs to be negative because your're moving all 3 pages in order to display the correct one in the viewport.
+
+## Swipe Gesture
+
+Well that was a lot of buildup, hats off if you stayed with me for all that. 
+Our gesture needs to do two things:
+- Drag the page in real time
+- Switch pages when the drag ends if certain conditions are met
