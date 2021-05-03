@@ -373,3 +373,65 @@ Well that was a lot of buildup, hats off if you stayed with me for all that.
 Our gesture needs to do two things:
 - Drag the page in real time
 - Switch pages when the drag ends if certain conditions are met
+
+With that in mind, inside our ```body```, let's create a new gesture and cover the first bullet point:
+
+``` swift 
+let HomeSwipeGesture = DragGesture()
+    .onChanged { change in
+        self.liveDrag = change.translation.width
+    }
+```
+
+Remember our variable ```liveDrag``` - well we use our ```.onChanged{}``` along with defining the result of the gesture as ```change``` to assign it the value of the gesture's translation in the x-axis. That's the realtime drag covered! Now for when we stop dragging. 
+Ideally, our gesture will check wether we've swiped left or right and then check wether there is a page to the left or right to swap to, before resetting the realtime drag so that our new page sits nicely center frame. 
+So the three possible outcomes of the drag gesture:
+- Swiped left and there is a page after the current one
+- Swiped right and there is a page before the current one
+- Neither of these conditions were met 
+
+Here's my code for this model!
+``` swift
+let HomeSwipeGesture = DragGesture()
+    .onChanged { change in
+        self.liveDrag = change.translation.width
+    }
+    .onEnded { change in
+        if change.translation.width < 0 && self.service.activePage < self.service.pages.count - 1 {
+            withAnimation(.easeOut(duration: 0.2)) {
+                self.service.changePage(self.service.activePage + 1)
+                self.liveDrag = 0
+            }
+
+        }
+        if change.translation.width > 0 && self.service.activePage > 0 {
+            withAnimation(.easeOut(duration: 0.2)) {
+                self.service.changePage(self.service.activePage - 1)
+                self.liveDrag = 0
+            }
+        }
+        withAnimation(.easeOut(duration: 0.4)) {
+            self.liveDrag = 0
+        }
+    }
+```
+
+By using ```withAnimation()```, we can animate any views that will change as a result of the action inside it. And using easeOut means that the animation starts instantly but stops gradually. 
+
+Perfect! Now all that's left to do is add the liveDrag value as an offset to the ZStack showing our page.
+
+``` swift
+ZStack {
+    ForEach(self.service.pages, id: \.self) { page in
+        HomePage(pageNo: page.pageNo).environmentObject(service)
+            .offset(x: CGFloat(page.pageNo) * UIScreen.main.bounds.width, y: 0)
+            .gesture(HomeSwipeGesture)
+    }
+}
+
+.frame(width: UIScreen.main.bounds.width)
+.offset(x: -CGFloat(self.service.activePage) * UIScreen.main.bounds.width, y: 0)
+.offset(x: self.liveDrag, y: 0)
+```
+
+There you have it! Hope you've enjoyed this walkthrough and it's helped you out or shown you something useful! As always, please go ahead and give me love or hate below! Feedback is essential for improvement. Be sure to check out my other walkthroughs if you enjoyed!
