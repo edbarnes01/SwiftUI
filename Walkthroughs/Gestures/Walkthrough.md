@@ -17,7 +17,7 @@ Disclaimer: Forgive me St.George for using "color" instead of the obviously corr
 
 If you know how I like to set up my projects then you'll be familiar with these file names. If not, maybe check [this](https://github.com/edbarnes01/SwiftUI/tree/main/BeforeYouRead#file-structure) out.
 
-These are the files you're going to need and which option you should choose:
+These are the files you're going to need and which option you should choose for each:
 
 - Container (SwiftUI)
 - Main      (SwiftUI)
