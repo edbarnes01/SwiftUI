@@ -221,4 +221,77 @@ Note: The colors I'm using here work for a dark background. I'll cover Color sch
 
  <img width="366" alt="Screenshot 2021-05-03 at 15 11 34" src="https://user-images.githubusercontent.com/68400711/116887136-dad19a80-ac21-11eb-8783-99e7106725ab.png">
 
-Jump back into ```Main.swift```. Let's create a new Struct called PageScroll 
+Jump back into ```Main.swift```. Let's create a new Struct called ```PageScroll``` and make it conform to View. This view will only reuqire our service. So this is how I created it:
+
+``` swift
+struct PageScroll: View {
+    @EnvironmentObject var service: Service
+    var body: some View {
+        HStack{
+            HStack {
+                ForEach(self.service.pages, id:\.self) { page in
+                    Image(systemName: "circlebadge.fill")
+                        .foregroundColor(self.service.isActivePage(pageNo: page.pageNo) ? .white : .gray)
+                        .onTapGesture {
+                            self.service.changePage(page.pageNo)
+                        }
+                        .font(.system(size: 10))
+                }
+            }
+            .padding(8)
+        }.padding(10)
+    }
+}
+```
+
+Fairly self explanatory for you now! I used an SF Symbol circle for each of pages we have in our service. The foreground color uses a ternary to check if the circle position is the same as the active page, and if it is, the circle becomes white - if not, gray. 
+
+***BAM! A GESTURE!***
+
+Using ```.onTapGesture{}``` we can give the image an action when tapped. Here, we've simply said, change the page to the one that this circle represents! Because SF Symbol size can be controlled using ```.font```, I changed the size to be 10 - which I thought worked best. And that's it!
+
+### Bottom Bar
+
+<img width="373" alt="Screenshot 2021-05-03 at 15 34 03" src="https://user-images.githubusercontent.com/68400711/116889898-ff7b4180-ac24-11eb-990e-b7d63837b453.png">
+
+Lol nice attempt at Spotify there... 
+
+Last but not least comes the bottom bar - for want of a better name 🤦🏼. Again, fairly simple seeing as we've already made our ```IconView```!
+
+``` swift
+struct BottomBar: View {
+    @EnvironmentObject var service: Service
+    var body: some View {
+        HStack(spacing: 20) {
+            ForEach(self.service.bottomBar.icons, id:\.self) { icon in
+                IconView(icon: icon, showText: false)
+            }
+        }
+        .frame(width: UIScreen.main.bounds.width, height: self.service.iconSize * 5 / 3)
+        .background(Color.darkGray)
+        .opacity(0.9)
+    }
+}
+```
+
+The frame is just what I thought looked best in terms of size, again using the ```iconSize``` so that things change dynamically when that value changes. One thing I need to mention is this line:
+``` swift
+.background(Color.darkGray)
+```
+Here I've used a custom Color that I defined in ```Themes.swift``` which is where I put all my Colors and View Modifiers etc. The code inside ```Themes``` for this color is as follows:
+``` swift 
+import Foundation
+import SwiftUI
+
+extension Color {
+    public static var darkGray: Color {
+        return Color(red: 70 / 255 , green: 70 / 255, blue: 70 / 255)
+    }
+}
+}
+```
+
+Make sure to import SwiftUI in order to acces ```Color```!
+
+
+
