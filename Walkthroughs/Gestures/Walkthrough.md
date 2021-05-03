@@ -335,7 +335,7 @@ struct Main: View {
     }
 }
 ```
-So we have a VStack containing a ZStack with our pages in, our ```PageScroll``` and the ```BottomBar```. A ZStack, in case you don't know, is like a VStack or HStack but instead of rendering it's content vertically or horziontally, it renders them ontop of each other. 
+So we have a VStack containing a ZStack with our pages in, our ```PageScroll``` and the ```BottomBar```. A ZStack, in case you don't know, is like a VStack or HStack but instead of rendering it's content vertically or horziontally, it renders them ontop of each other. I defined the background here too which you can grab from the assets [folder](https://github.com/edbarnes01/SwiftUI/tree/main/Walkthroughs/Gestures/Gestures/Assets.xcassets/example_background.imageset) or use your own!
 
 This is good but we need the ```HomePage``` views indside the ZStack to be side by side and not ontop of each other. We can do this by adding an offset in the x axis using the screenwidth and page number. Here's what that looks like represented visually:
 <img width="929" alt="Screenshot 2021-05-03 at 16 09 32" src="https://user-images.githubusercontent.com/68400711/116894675-3ef85c80-ac2a-11eb-9249-e3a081155e13.png">
