@@ -1,5 +1,5 @@
 <!-- CUSTOM TABS -->
-## Custom Tabs
+# Custom Tabs
 
 Hi all! In this walkthrough I’ll be talking about custom Tabs and how I like to implement them into my apps. I'll cover the functionality behind page navigation and creating the custom tabs.
 
