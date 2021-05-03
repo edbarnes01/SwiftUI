@@ -6,7 +6,7 @@ Hi all! In this walkthrough I’ll be talking about gestures and how you can use
 * [Preview](#preview)
 * [Intro](#intro)
 * [Setup](#setup)
-* [ICreating The Pages](#creating-the-pages)
+* [Creating The Pages](#creating-the-pages)
 * [Gesture](#gesture)
 
 ## Preview
@@ -110,13 +110,17 @@ These are quite self explanatory I think!
 
 A typical home screen has 3 main elements, the icons, the little circles (page scroll) and the bottom bar with 4/5 more icons. 
 
+### Icons
+
+<img src="https://user-images.githubusercontent.com/68400711/116886894-8d552d80-ac21-11eb-94e9-8584efbb6827.png" width="250" height="450"/>
+
 Let’s start with the icon section which I have named ```HomePage```. Open up ```HomePage.swift``` and within the ```HomePage``` struct let’s define our service environment object and then also define our page number variable:
 
 ``` swift
 struct HomePage: View {
     @EnvironmentObject var service: Service
     var pageNo: Int
-    
+
     ...
 ````
 Great! Now, the icons.
@@ -139,7 +143,7 @@ struct HomePage: View {
 }
 ```
 
-So with a LazyVGrid, we need to define the layout for the cells in our grid. For a VGrid, the cells will be organised in Columns and for an HGrid, rows. Within the ```columns:``` parameter, you can tell SwiftUI your layout preferences. For this project, I went with adaptive cells (```.adaptive()```) but you could also used fixed sizes as well. However, i did ant to specify that the cells should always be at least as big as our icon size we defined in our service. 
+So with a LazyVGrid, we need to define the layout for the cells in our grid. For a VGrid, the cells will be organised in Columns and for an HGrid, rows. Within the ```columns:``` parameter, you can tell SwiftUI your layout preferences. For this project, I went with adaptive cells (```.adaptive()```) but you could also used fixed sizes as well. However, i did want to specify that the cells should always be at least as big as our icon size we defined in our service. Also, make sure to add a background that is almost invisible - this is a work around so that our gesture will work no matter where we drag on our page.
 
 For the content (where ```// Content``` is) I'll create a separate struct called ```IconView``` and make it conform to View. Add a body with some text in to keep XCode happy and then let's also define some variables at the top:
 
@@ -209,4 +213,12 @@ struct HomePage: View {
 }
 ```
 
+This is just a ForEach using the ```PageData``` item's icons that corresponds with our page number and with our new ```IconView``` as it's content. Awesome!
 
+Note: The colors I'm using here work for a dark background. I'll cover Color schemes and light/dark mode in a different walkthrough!
+
+### Page Scroll Circles
+
+ <img width="366" alt="Screenshot 2021-05-03 at 15 11 34" src="https://user-images.githubusercontent.com/68400711/116887136-dad19a80-ac21-11eb-8783-99e7106725ab.png">
+
+Jump back into ```Main.swift```. Let's create a new Struct called PageScroll 
