@@ -3,7 +3,7 @@
 
 Hi all! In this walkthrough I’ll be talking about gestures and how you can use them to create cool effects. This project focuses on the ```DragGesture()``` (but also includes ```.onTapGesture{}```). I decided a cool way to show you how this could work would be to recreate a home screen. This produced some interesting results... I rather like using SF Symbols instead of the normal icons for these apps 👀. Anyway, without further delay, let's jump in!
 
-* Disclaimer: Forgive me St.George for using "color" instead of the obviously correct, "colour" 😔
+Disclaimer: Forgive me St.George for using "color" instead of the obviously correct, "colour" 😔
 * [Preview](#preview)
 * [Setup](#setup)
 * [Creating The Pages](#creating-the-pages)
