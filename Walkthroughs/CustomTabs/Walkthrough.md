@@ -10,8 +10,7 @@ Hi all! In this walkthrough I’ll be talking about custom Tabs and how I like t
 * [The Tabs](#the-tabs)
 
 ## Preview
-
-https://user-images.githubusercontent.com/68400711/116890981-1e2e0800-ac26-11eb-8770-27a276042bca.mov
+https://user-images.githubusercontent.com/68400711/116891246-63523a00-ac26-11eb-9775-4a1a92e6aac2.mov
 
 ## Intro 
 Before we start there are a few things to consider. As in most occasions, I am going to start by creating a “Service”, and if you don’t know what I mean when I say that, please look [here](https://github.com/edbarnes01/SwiftUI/tree/main/BeforeYouRead#service). We need our page navigation functionality and current page variable to be inside the service so that we can access and change the page from different views. So let’s begin by designing the service!
