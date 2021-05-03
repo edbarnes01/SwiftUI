@@ -11,7 +11,7 @@ Disclaimer: Forgive me St.George for using "color" instead of the obviously corr
 * [Cba with your incredibly useful explanations](#swipe-gesture)
 
 ## Preview
-<img src="https://user-images.githubusercontent.com/68400711/116878953-f0da5d80-ac17-11eb-91d2-509c43505981.gif" width="250" height="500"/>
+https://user-images.githubusercontent.com/68400711/116899220-335b6480-ac2f-11eb-91f3-82f689888a8b.mov
 
 ## Setup
 
