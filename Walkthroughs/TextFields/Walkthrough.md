@@ -9,6 +9,8 @@ Hi all! In this walkthrough I’ll be showcasing some simple text fields and how
 
 ## Preview
 
+https://user-images.githubusercontent.com/68400711/117585815-60ff4c80-b10c-11eb-8926-c4391696f1bc.mov
+
 ## Setup
 
 If you know how I like to set up my projects then you'll be familiar with these file names. If not, maybe check [this](https://github.com/edbarnes01/SwiftUI/tree/main/BeforeYouRead#file-structure) out.
