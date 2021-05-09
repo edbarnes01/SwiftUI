@@ -74,6 +74,77 @@ And so, within this function, we check that the credentials they have entered ar
 
 Glad that's done! Let's move on.
 
+### Page Logic
+Our page logic will be dependant on our ```loggedIn``` value within our service. Let's open up ```Container.swift```. Make sure you define the service and then we'll create a switch statement to show the correct page:
+
+``` swift
+struct Container: View {
+    @EnvironmentObject var service: Service
+    
+    var body: some View {
+        switch self.service.loggedIn {
+        case true:
+            Main().environmentObject(service)
+        case false:
+            Login().environmentObject(service)
+        }
+        
+    }
+}
+```
+Awesome!
+
+### Modifiers
+
+Next we're gonna make some ```ViewModifiers``` which are some clever pieces of code we can run views through and apply affects to them. These are extremely useful for creating themes and using them throughout your app. Make sure to import SwiftUI and then let's make 3 modifiers:
+
+``` swift 
+import SwiftUI
+
+struct CustomTextField: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .autocapitalization(.none)
+            .foregroundColor(.black)
+            .padding(10)
+            .frame(width: UIScreen.main.bounds.width / 5 * 3)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 6))
+            .clipped()
+            .shadow(color: .white, radius: 2)
+    }
+}
+
+struct CustomButton: ViewModifier {
+    var color: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(color == .white ? Color.black : .white )
+            .padding(10)
+            .background(color)
+            .clipShape(RoundedRectangle(cornerRadius: 6))
+            .clipped()
+    }
+}
+
+struct BackgroundGradient: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+        .background(
+            LinearGradient(gradient: Gradient(colors: [.yellow, .purple, .yellow, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            )
+    }
+}
+
+```
+
+Now, these modifiers' styles are just what I thought looked okay. Please feel free to mess around and create your own! In general, moifiers are passed some content (a ```View``` for a ```ViewModifier```) into a body function which returns the altered View (the ```return``` keyword is assumed, and therefore not needed in this function). As you can see in the ```CustomButton``` modifier, variables (```color``` in this case) can also be passed in order to add some properties that can be controlled wherever the modifier is applied. 
+
+Another thing I'd like to point out is the use of ```.autocapitalization(.none)``` which for me, is so helpful. ***IT REALLY FRUSTRATES ME WHEN APPS DON'T HAVE AUTOCAPITALIZATION SET TO NONE BECAUSE A LOT OF EMAILS START WITH A LOWERCASE LETTER.***
+
+Rant over! I digress and we move on...
+
 ## TextField Bindings
 
 Open up ```Login.swift``` and let's create our login page. We'll need some variables:
@@ -114,3 +185,36 @@ struct Login: View {
         )
     ...
 ```
+Our custom bindings have two functions, a ```get``` and a ```set```, which define how our text value is grabbed and set. Wtithin these functions, you could add things to process the new value, for example - adding ```.prefix(8)``` to the set would limit the characters of the new value to the first 8. 
+
+Now let's mkae our login UI:
+
+``` swift
+VStack(spacing: 20) {
+    Spacer()
+
+    Text("BEST APP")
+        .font(.system(size: 40))
+        .fontWeight(.heavy)
+        .foregroundColor(.white)
+        .padding()
+        .clipped()
+
+    TextField("Email", text: emailBind)
+        .modifier(CustomTextField())
+
+    SecureField("Password", text: passwordBind)
+        .modifier(CustomTextField())
+
+    Text("Login")
+        .fontWeight(.bold)
+        .modifier(CustomButton(color: fieldsValid() ? .blue : .gray))
+        .shadow(color: .white, radius: 2)
+        .padding(.top, 20)
+        .disabled(!fieldsValid())
+
+    Spacer()
+}
+```
+
+So as you can see, there
