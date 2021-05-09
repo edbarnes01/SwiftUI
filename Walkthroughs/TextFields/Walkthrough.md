@@ -9,6 +9,8 @@ Hi all! In this walkthrough I’ll be showcasing some simple text fields and how
 
 ## Preview
 
+https://user-images.githubusercontent.com/68400711/117585735-ddddf680-b10b-11eb-9dbb-60288b972e18.mov
+
 
 ## Setup
 
@@ -237,6 +239,9 @@ func fieldsValid() -> Bool {
 Now XCode should have stopped moaning...
 
 ## Custom Alert
+
+<img width="297" alt="CustomAlertPreview" src="https://user-images.githubusercontent.com/68400711/117585761-05cd5a00-b10c-11eb-97bc-f78f28beff2c.png">
+
 
 SwiftUI has an api for an alert but I find it easier to create my own most of the time. In order to do this, we need to wrap our body in a ZStack and then show our alert on-top when we want to. Let's create our alert as a separate view:
 
