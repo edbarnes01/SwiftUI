@@ -95,6 +95,35 @@ struct Container: View {
 ```
 Awesome!
 
+Let's jump into ```Main.swift``` quickly. I just made a simple homepage with a button to log out:
+
+``` swift 
+struct Main: View {
+    @EnvironmentObject var service: Service
+    var body: some View {
+        VStack {
+            HStack {
+                HStack {
+                    Image(systemName: "arrow.uturn.left")
+                        .foregroundColor(.white)
+                    Text("Log out")
+                }
+                .modifier(CustomButton(color: .red))
+                .padding(20)
+                .onTapGesture {
+                    self.service.logOut()
+                }
+                
+                Spacer()
+            }
+            Spacer()
+            Text("Main page")
+            Spacer()
+        }
+    }
+}
+```
+
 ### Modifiers
 
 Next we're gonna make some ```ViewModifiers``` which are some clever pieces of code we can run views through and apply affects to them. These are extremely useful for creating themes and using them throughout your app. Make sure to import SwiftUI and then let's make 3 modifiers:
