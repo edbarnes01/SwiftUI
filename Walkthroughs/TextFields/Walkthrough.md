@@ -211,10 +211,9 @@ VStack(spacing: 20) {
         .modifier(CustomButton(color: fieldsValid() ? .blue : .gray))
         .shadow(color: .white, radius: 2)
         .padding(.top, 20)
-        .disabled(!fieldsValid())
 
     Spacer()
 }
 ```
 
-So as you can see, there
+So as you can see, we've got a title, a text field for the email and a secure text field for the password. A secure text field uses the black dots that you see in most password fields. These both have our modifier we made in [setup]() applied to them
